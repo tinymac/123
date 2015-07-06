@@ -5,6 +5,7 @@
 //     / /_/ / /_/ / /_/ /_/ /  __/ ___ |/ /  /  __/ / / / /_/ (__  )      //
 //    /_____/\__,_/\__/\__/_/\___/_/  |_/_/   \___/_/ /_/\__,_/____/       //
 //         Developed by Natureknight for BattleArenas.no-ip.org            //
+//                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 
 #include "ScriptPCH.h"
@@ -13,7 +14,7 @@ const uint32 ONE_CHARACTER_VIP = 4992700;
 
 enum ForbiddenAreas
 {
-	AREA_VIP_MALL            = 1196,  // Utgarde Pinnacle
+	AREA_VIP_MALL            = 268,  // Utgarde Pinnacle
 	AREA_VIP_ISLAND          = 2317,  // South Seas
 	AREA_GM_ISLAND           = 876,   // GM Island
 };

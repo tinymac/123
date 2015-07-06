@@ -1,12 +1,12 @@
-////////////////////////////////////////////////////////////////////////
-//      ___                         ___       __  __  __              //
-//     / _ | _______ ___  ___ _____/ _ )___ _/ /_/ /_/ /__ ___        //
-//    / __ |/ __/ -_) _ \/ _ `/___/ _  / _ `/ __/ __/ / -_|_-<        //
-//   /_/ |_/_/  \__/_//_/\_,_/   /____/\_,_/\__/\__/_/\__/___/.com    //
-//                                                                    //
-//         Developed by Natureknight Patrick and Scott.               //
-//                                                                    //
-////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+//        ____        __  __  __     ___                                   //
+//       / __ )____ _/ /_/ /_/ /__  /   |  ________  ____  ____ ______     //
+//      / __  / __ `/ __/ __/ / _ \/ /| | / ___/ _ \/ __ \/ __ `/ ___/     //
+//     / /_/ / /_/ / /_/ /_/ /  __/ ___ |/ /  /  __/ / / / /_/ (__  )      //
+//    /_____/\__,_/\__/\__/_/\___/_/  |_/_/   \___/_/ /_/\__,_/____/       //
+//         Developed by Natureknight for BattleArenas.no-ip.org            //
+//                                                                         //
+/////////////////////////////////////////////////////////////////////////////
 
 #include "ScriptPCH.h"
 
@@ -46,13 +46,13 @@ public:
                     player->CLOSE_GOSSIP_MENU();
                     player->ModifyArenaPoints(-200);
                     player->ModifyHonorPoints(+4000);
-                    creature->MonsterWhisper("|c00077766[Arena-Battles]|r You exchanged successfully!", player->GetGUID(), true);
+                    creature->MonsterWhisper("|c00077766[Call To Arms]|r You exchanged successfully!", player->GetGUID(), true);
 
                 }
                 else
                 {
                     player->CLOSE_GOSSIP_MENU();
-                    creature->MonsterWhisper("|c00077766[Arena-Battles]|r You don't have enough Arena Points!", player->GetGUID(), true);
+                    creature->MonsterWhisper("|c00077766[Call To Arms]|r You don't have enough Arena Points!", player->GetGUID(), true);
 
                     return false;
                 }
@@ -64,11 +64,11 @@ public:
                     player->CLOSE_GOSSIP_MENU();
                     player->ModifyArenaPoints(+200);
                     player->ModifyHonorPoints(-4000);
-                    creature->MonsterWhisper("|c00077766[Arena-Battles]|r You exchanged successfully!", player->GetGUID(), true);                }
+                    creature->MonsterWhisper("|c00077766[Call To Arms]|r You exchanged successfully!", player->GetGUID(), true);                }
                 else
                 {
                     player->CLOSE_GOSSIP_MENU();
-                    creature->MonsterWhisper("|c00077766[Arena-Battles]|r You don't have enough Honor Points!", player->GetGUID(), true);
+                    creature->MonsterWhisper("|c00077766[Call To Arms]|r You don't have enough Honor Points!", player->GetGUID(), true);
                     return false;
                 }
                 break;

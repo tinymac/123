@@ -46,6 +46,8 @@ set(scripts_STAT_SRCS
   Custom/TemplateNPC.h
   Custom/npc_solo3v3.cpp
   Custom/npc_solo3v3.h
+  Custom/item_gossip.cpp
+  Custom/TCWorldChat.cpp
 )
 
 message("  -> Prepared: Custom")

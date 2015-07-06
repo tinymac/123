@@ -1,11 +1,12 @@
-/////////////////////////////////////////////////////////////////////////////
-//        ____        __  __  __     ___                                   //
-//       / __ )____ _/ /_/ /_/ /__  /   |  ________  ____  ____ ______     //
-//      / __  / __ `/ __/ __/ / _ \/ /| | / ___/ _ \/ __ \/ __ `/ ___/     //
-//     / /_/ / /_/ / /_/ /_/ /  __/ ___ |/ /  /  __/ / / / /_/ (__  )      //
-//    /_____/\__,_/\__/\__/_/\___/_/  |_/_/   \___/_/ /_/\__,_/____/       //
-//         Developed by Natureknight for BattleArenas.no-ip.org            //
-/////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+//																	  //
+//																	  //
+//																	  //
+//              Kargath-WoW Instant 80 PVP REALM					  //
+//              By Ladrek, Markus                                     //
+//																	  //
+//                                                                    //
+////////////////////////////////////////////////////////////////////////
 
 #include "ScriptPCH.h"
 #include "Group.h"
@@ -26,20 +27,22 @@ public:
 		switch (pPlayer->GetTeam())
 		{
 		case ALLIANCE:
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Stormwind - Mall", GOSSIP_SENDER_MAIN, 2, "Are you sure you want to go to Stormwind Mall?", 0, false);
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Ironforge - Mall", GOSSIP_SENDER_MAIN, 9, "Are you sure you want to go to Ironforge Mall?", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Defend Stormwind", GOSSIP_SENDER_MAIN, 2, "Are you sure you want to go to Stormwind", 0, false);
+			// pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Ironforge", GOSSIP_SENDER_MAIN, 9, "Are you sure you want to go to Ironforge?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Stranglethorn Vale - PvP", GOSSIP_SENDER_MAIN, 17, "Are you sure you want to go to Stranglethorn Vale?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Goldenmist Village - PvP", GOSSIP_SENDER_MAIN, 43, "Are you sure you want to go to Goldenmist Village?", 0, false);
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Elwynn Forest", GOSSIP_SENDER_MAIN, 47, "Are you sure you want to go to Elwynn Forest?", 0, false);
+			// pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Elwynn Forest", GOSSIP_SENDER_MAIN, 47, "Are you sure you want to go to Elwynn Forest?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Raid for Orgrimmar", GOSSIP_SENDER_MAIN, 49, "Are you sure you want to go to Durotar? (Need atleast 3 players)", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Neutral Mall", GOSSIP_SENDER_MAIN, 1337, "Are you sure you want to go to Neutral Mall?", 0, false);
 			break;
 		case HORDE:
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Orgrimmar - Mall", GOSSIP_SENDER_MAIN, 4, "Are you sure you want to go to Orgrimmar Mall?", 0, false);
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Silvermoon - Mall", GOSSIP_SENDER_MAIN, 3, "Are you sure you want to go to Silvermoon Mall?", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Defend Orgrimmar", GOSSIP_SENDER_MAIN, 4, "Are you sure you want to go to Orgrimmar?", 0, false);
+			// pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Silvermoon", GOSSIP_SENDER_MAIN, 3, "Are you sure you want to go to Silvermoon?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Stranglethorn Vale - PvP", GOSSIP_SENDER_MAIN, 17, "Are you sure you want to go to Stranglethorn Vale?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Goldenmist Village - PvP", GOSSIP_SENDER_MAIN, 44, "Are you sure you want to go to Goldenmist Village?", 0, false);
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Durotar", GOSSIP_SENDER_MAIN, 48, "Are you sure you want to go to Durotar?", 0, false);
+			// pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Durotar", GOSSIP_SENDER_MAIN, 48, "Are you sure you want to go to Durotar?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Raid for Stormwind", GOSSIP_SENDER_MAIN, 50, "Are you sure you want to go to Durotar? (Need atleast 3 players)", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Neutral Mall", GOSSIP_SENDER_MAIN, 1337, "Are you sure you want to go to Neutral Mall?", 0, false);
 			break;
 		}
 		pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Dueling Zone", GOSSIP_SENDER_MAIN, 45, "Are you sure you want to go to Dueling Zone?", 0, false);
@@ -49,10 +52,10 @@ public:
 		pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Tanaris - Custom Jump Event", GOSSIP_SENDER_MAIN, 7, "Are you sure you want to go to Custom jump event?", 0, false);
 		pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Random Queue Places", GOSSIP_SENDER_MAIN, 16, "Are you sure you want to do this?", 0, false);
 		pPlayer->ADD_GOSSIP_ITEM_EXTENDED(4, "Random Queue Places (As Group)", GOSSIP_SENDER_MAIN, 8, "Are you sure you want to do this?", 0, false);
-		if (pPlayer->getClass() == CLASS_HUNTER)
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Hunter's Tame Pet Zone", GOSSIP_SENDER_MAIN, 19, "Are you sure you want to go to pets zone?", 0, false);
-		else if (pPlayer->getClass() != CLASS_HUNTER)
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Hunter's Tame Pet Zone", GOSSIP_SENDER_MAIN, 42, "Are you sure you want to go to pets zone?", 0, false);
+		 // if (pPlayer->getClass() == CLASS_HUNTER)
+	    // pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Hunter's Tame Pet Zone", GOSSIP_SENDER_MAIN, 19, "Are you sure you want to go to pets zone?", 0, false);
+		// else if (pPlayer->getClass() != CLASS_HUNTER)
+		//pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Hunter's Tame Pet Zone", GOSSIP_SENDER_MAIN, 42, "Are you sure you want to go to pets zone?", 0, false);
 		pPlayer->ADD_GOSSIP_ITEM(4, "Additional Features", GOSSIP_SENDER_MAIN, 20);
 		pPlayer->SEND_GOSSIP_MENU(60020, pCreature->GetGUID());
 		return true;
@@ -75,14 +78,18 @@ public:
 		switch (uiAction)
 		{
 		case 0: // VIP mall
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Teleport to VIP mall", GOSSIP_SENDER_MAIN, 13, "Are you sure you want to go to VIP Mall?", 0, false);
-			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Teleport to VIP Island", GOSSIP_SENDER_MAIN, 14, "Are you sure you want to go to VIP Island?", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Teleport to VIP Mall", GOSSIP_SENDER_MAIN, 13, "Are you sure you want to go to VIP Mall?", 0, false);
+			pPlayer->ADD_GOSSIP_ITEM_EXTENDED(GOSSIP_ICON_INTERACT_1, "Teleport to VIP Que Island", GOSSIP_SENDER_MAIN, 14, "Are you sure you want to go to VIP Island?", 0, false);
 			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, "Previous Page", GOSSIP_SENDER_MAIN, 15);
 			pPlayer->SEND_GOSSIP_MENU(60020, pCreature->GetGUID());
 			break;
 
 		case 1: // Darnassus Mall
 			pPlayer->TeleportTo(1, 9949.658203f, 2374.083252f, 1330.001345f, 4.731387f);
+			break;
+
+		case 1337: // Neutral Mall
+			pPlayer->TeleportTo(530, 4174.775391f, 3009.921631f, 339.042175f, 3.100940f);
 			break;
 
 		case 2: // Stormwind Mall
@@ -403,7 +410,7 @@ public:
 			break;
 
 		case 13: // VIP Mall 
-			pPlayer->TeleportTo(575, 296.799896f, -330.603210f, 86.367546f,  4.712197f); // Utgarde Pinnacle
+			pPlayer->TeleportTo(37, -18.558054f, 982.330017f, 348.330963f,  4.032752f); // Azshara Crater
 			break;
 
 		case 14: // VIP Island
@@ -606,7 +613,7 @@ public:
 					return false;
 				}
 
-				pPlayer->TeleportTo(1,  1014.313416f,  -4449.859375f, 11.343950f, 0.458436f);
+				pPlayer->TeleportTo(1,  1076.446167f,  -4380.293945f, 21.868385f, 3.140767f);
 				for (GroupReference* itr = group->GetFirstMember(); itr != NULL; itr = itr->next())
 				{
 
@@ -629,7 +636,7 @@ public:
 					else
 						plr->SaveRecallPosition();
 
-					plr->SetSummonPoint(1,  1014.313416f,  -4449.859375f, 11.343950f);
+					plr->SetSummonPoint(1, 1076.446167f, -4380.293945f, 21.868385f);
 					WorldPacket data(SMSG_SUMMON_REQUEST, 8+4+4);
 					data << uint64(pPlayer->GetGUID());                                       // summoner guid
 					data << uint32(14);                                                       // summoner zone
@@ -648,7 +655,7 @@ public:
 					return false;
 				}
 
-				pPlayer->TeleportTo(0,  -9459.583984f,  63.895885f, 55.876137f, 0.485727f);
+				pPlayer->TeleportTo(0,  -9533.540039f,  98.611000f, 58.882198f, 1.858551f);
 				for (GroupReference* itr = group->GetFirstMember(); itr != NULL; itr = itr->next())
 				{
 
@@ -671,7 +678,7 @@ public:
 					else
 						plr->SaveRecallPosition();
 
-					plr->SetSummonPoint(0,  -9459.583984f,  63.895885f, 55.876137f);
+					plr->SetSummonPoint(0, -9533.540039f, 98.611000f, 58.882198f);
 					WorldPacket data(SMSG_SUMMON_REQUEST, 8+4+4);
 					data << uint64(pPlayer->GetGUID());                                       // summoner guid
 					data << uint32(12);                                                       // summoner zone

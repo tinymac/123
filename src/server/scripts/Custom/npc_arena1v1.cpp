@@ -1,12 +1,12 @@
-////////////////////////////////////////////////////////////////////////
-//      ___                         ___       __  __  __              //
-//     / _ | _______ ___  ___ _____/ _ )___ _/ /_/ /_/ /__ ___        //
-//    / __ |/ __/ -_) _ \/ _ `/___/ _  / _ `/ __/ __/ / -_|_-<        //
-//   /_/ |_/_/  \__/_//_/\_,_/   /____/\_,_/\__/\__/_/\__/___/.com    //
-//                                                                    //
-//         Developed by Natureknight Patrick and Scott.               //
-//                                                                    //
-////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+//        ____        __  __  __     ___                                   //
+//       / __ )____ _/ /_/ /_/ /__  /   |  ________  ____  ____ ______     //
+//      / __  / __ `/ __/ __/ / _ \/ /| | / ___/ _ \/ __ \/ __ `/ ___/     //
+//     / /_/ / /_/ / /_/ /_/ /  __/ ___ |/ /  /  __/ / / / /_/ (__  )      //
+//    /_____/\__,_/\__/\__/_/\___/_/  |_/_/   \___/_/ /_/\__,_/____/       //
+//         Developed by Natureknight for BattleArenas.no-ip.org            //
+//                                                                         //
+/////////////////////////////////////////////////////////////////////////////
 
 #include "ScriptMgr.h"
 #include "ArenaTeamMgr.h"
@@ -188,7 +188,7 @@ public:
 		//	}
 		//	player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Show statistics", GOSSIP_SENDER_MAIN, 4);
 		//}
-		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Script Information", GOSSIP_SENDER_MAIN, 8);
+		player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Good Bye", GOSSIP_SENDER_MAIN, 8);
 		player->SEND_GOSSIP_MENU(60014, me->GetGUID());
 		return true;
 	}
@@ -287,8 +287,7 @@ public:
 
 		case 8: // Script Info
 			{
-				player->GetSession()->SendAreaTriggerMessage("Developer: Natureknight");
-				player->GetSession()->SendAreaTriggerMessage("Website: battlearenas.no-ip.org");
+				player->GetSession()->SendAreaTriggerMessage("");
 				player->CLOSE_GOSSIP_MENU();
 				return true;
 			}

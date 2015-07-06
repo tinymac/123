@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////
-//      ___                         ___       __  __  __              //
-//     / _ | _______ ___  ___ _____/ _ )___ _/ /_/ /_/ /__ ___        //
-//    / __ |/ __/ -_) _ \/ _ `/___/ _  / _ `/ __/ __/ / -_|_-<        //
-//   /_/ |_/_/  \__/_//_/\_,_/   /____/\_,_/\__/\__/_/\__/___/.com    //
+//							                                          //
+//							                                          //
+//								                                      //
+//              Kargath-WoW Instant 80 PVP REALM		              //
+//              By Ladrek, Markus                                     //
 //                                                                    //
-//         Developed by Natureknight Patrick and Scott.               //
 //                                                                    //
 ////////////////////////////////////////////////////////////////////////
 
@@ -29,13 +29,13 @@ public:
 
 	bool OnGossipSelect(Player * pPlayer, Creature * pCreature, uint32 sender, uint32 uiAction)
 	{
-		QueryResult select = LoginDatabase.PQuery("SELECT dp, vp FROM fusioncms_new.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
+		QueryResult select = LoginDatabase.PQuery("SELECT dp, vp FROM website2.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
 
 		pPlayer->PlayerTalkClass->ClearMenus();
 
 		if (!select)
 		{
-			pPlayer->GetSession()->SendAreaTriggerMessage("You don't have any vote or donation points. Please vote/donate first at: http://battlearenas.no-ip.org");
+			pPlayer->GetSession()->SendAreaTriggerMessage("You don't have any vote or donation points. Please vote/donate first at: Kargath-WoW.com");
 			pPlayer->CLOSE_GOSSIP_MENU();
 			return false;
 		}
@@ -45,9 +45,9 @@ public:
 		uint32 vp = fields[1].GetUInt32();
 
 		// If player is not owner and donate points are higher than 25...
-		if (pPlayer->GetSession()->GetSecurity() < 5 && dp > 25)
+		if (pPlayer->GetSession()->GetSecurity() < 5 && dp > 500)
 		{
-			pPlayer->GetSession()->SendAreaTriggerMessage("You have large amount of Donation points: %u. This is probably a website related problem, please immediately contact the administrator via ticket about this issue.", dp);
+			pPlayer->GetSession()->SendAreaTriggerMessage("You have large amount of Donation points: %u. This is probably a web related problem, please immediately contact the administrator via ticket about this issue.", dp);
 			pPlayer->CLOSE_GOSSIP_MENU();
 			return false;
 		}
@@ -56,9 +56,9 @@ public:
 		{
 		case 0:
 			if (dp < 1)
-				pPlayer->ADD_GOSSIP_ITEM(4, "Purchase one Donation Token (1 DP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
-			else if (dp >= 1)
-				pPlayer->ADD_GOSSIP_ITEM(4, "Purchase one Donation Token (1 DP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 2);
+			//	pPlayer->ADD_GOSSIP_ITEM(4, "Purchase one Donation Token (1 DP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
+			//  else if (dp >= 1)
+			//  pPlayer->ADD_GOSSIP_ITEM(4, "Purchase one Donation Token (1 DP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 2);
 
 			if (dp < 5)
 				pPlayer->ADD_GOSSIP_ITEM(4, "Purchase VIP only for this character (5 DP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
@@ -77,14 +77,14 @@ public:
 
 		case 1:
 			if (vp < 50)
-				pPlayer->ADD_GOSSIP_ITEM(4, "BattleArenas Donation Pack I (50 VP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
-			else if (vp >= 50)
-				pPlayer->ADD_GOSSIP_ITEM(4, "BattleArenas Donation Pack I (50 VP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 29);
+			//	pPlayer->ADD_GOSSIP_ITEM(4, "Call To Arms Donation Pack I (50 VP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
+		//	else if (vp >= 50)
+			//	pPlayer->ADD_GOSSIP_ITEM(4, "Call To Arms Donation Pack I (50 VP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 29);
 
 			if (vp < 100)
-				pPlayer->ADD_GOSSIP_ITEM(4, "BattleArenas Donation Pack II (100 VP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
-			else if (vp >= 100)
-				pPlayer->ADD_GOSSIP_ITEM(4, "BattleArenas Donation Pack II (100 VP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 30);
+			//	pPlayer->ADD_GOSSIP_ITEM(4, "Call To Arms Donation Pack II (100 VP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
+		//	else if (vp >= 100)
+			//	pPlayer->ADD_GOSSIP_ITEM(4, "Call To Arms Donation Pack II (100 VP - |cff009900Unlocked|r).", GOSSIP_SENDER_MAIN, 30);
 
 			if (vp < 150)
 				pPlayer->ADD_GOSSIP_ITEM(4, "Wrathful Gladiator's Tabard (150 VP - |cffD80000Locked|r).", GOSSIP_SENDER_MAIN, 31);
@@ -113,7 +113,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned 1 Donation Token. Use donation tokens to buy items from Donation Vendor behind me! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->AddItem(DONOR_TOKEN, 1);
 				pPlayer->SaveToDB();
@@ -129,7 +129,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET vp = '%u' -150 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET vp = '%u' -150 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Wrathful Gladiator's Tabard! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->AddItem(51534, 1); // Wrathful Gladiator's Tabard
 				pPlayer->SaveToDB();
@@ -145,12 +145,12 @@ public:
 			}
 			else if (dp < 20)
 			{
-				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enought Donation Points");
+				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enough Donation Points");
 				pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -20 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -20 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				LoginDatabase.PExecute("INSERT INTO `account_access` (`id`, `gmlevel`, `RealmID`) VALUES (%u, 1, -1);", pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully upgraded your account to VIP. Quit the game and log in again for changes to take effect! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SaveToDB();
@@ -166,7 +166,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET vp = '%u' -100 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET vp = '%u' -100 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Relentless Gladiator's Tabard! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->AddItem(49086, 1); // Relentless Gladiator's Tabard
 				pPlayer->SaveToDB();
@@ -182,7 +182,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET vp = '%u' -50 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET vp = '%u' -50 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Furios Gladiator's Tabard! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->AddItem(45983, 1); // Furious Gladiator's Tabard
 				pPlayer->SaveToDB();
@@ -230,7 +230,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Conqueror title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(47));
 				pPlayer->SaveToDB();
@@ -251,7 +251,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Justicar title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(48));
 				pPlayer->SaveToDB();
@@ -272,7 +272,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Battlemaster title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(72));
 				pPlayer->SaveToDB();
@@ -293,7 +293,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Scarab Lord title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(46));
 				pPlayer->SaveToDB();
@@ -314,7 +314,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Brewmaster title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(133));
 				pPlayer->SaveToDB();
@@ -335,7 +335,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned The Love Fool title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(135));
 				pPlayer->SaveToDB();
@@ -356,7 +356,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Matron title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(137));
 				pPlayer->SaveToDB();
@@ -377,7 +377,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Patron title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(138));
 				pPlayer->SaveToDB();
@@ -398,7 +398,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned The Hallowed title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(124));
 				pPlayer->SaveToDB();
@@ -419,7 +419,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Merrymaker title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(134));
 				pPlayer->SaveToDB();
@@ -440,7 +440,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned The Noble title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(155));
 				pPlayer->SaveToDB();
@@ -461,7 +461,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned The Pilgrim title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(168));
 				pPlayer->SaveToDB();
@@ -482,7 +482,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Flame Keeper title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(76));
 				pPlayer->SaveToDB();
@@ -503,7 +503,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Flame Warden title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(75));
 				pPlayer->SaveToDB();
@@ -524,7 +524,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Elder title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(74));
 				pPlayer->SaveToDB();
@@ -545,7 +545,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully earned Jenkins title! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->SetTitle(sCharTitlesStore.LookupEntry(143));
 				pPlayer->SaveToDB();
@@ -561,12 +561,12 @@ public:
 			}
 			else if (dp < 5)
 			{
-				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enought Donation Points");
+				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enough Donation Points");
 				pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -5 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -5 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully upgraded this character to VIP! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->AddItem(ONE_CHARACTER_VIP, 1);
 				pPlayer->SaveToDB();
@@ -577,12 +577,12 @@ public:
 		case 27: // 10000 Honor
 			if (dp < 1)
 			{
-				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enought Donation Points");
+				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enough Donation Points");
 				pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully gained 10000 Honor Points! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->ModifyHonorPoints(10000);
 				pPlayer->SaveToDB();
@@ -593,12 +593,12 @@ public:
 		case 28: // 500 Arena Points
 			if (dp < 1)
 			{
-				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enought Donation Points");
+				pPlayer->GetSession()->SendAreaTriggerMessage("You dont have enough Donation Points");
 				pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pCreature->MonsterWhisper("Successfully gained 500 Arena Points! Thanks for the support!", pPlayer->GetGUID());
 				pPlayer->ModifyArenaPoints(500);
 				pPlayer->SaveToDB();
@@ -614,11 +614,11 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET vp = '%u' -50 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
-				pCreature->MonsterWhisper("Successfully earned BattleArenas Donation Pack I! Thanks for the support!", pPlayer->GetGUID());
-				pPlayer->AddItem(43575, 1); // BattleArenas Donation Pack I
-				pPlayer->SaveToDB();
-				pPlayer->CLOSE_GOSSIP_MENU();
+				// LoginDatabase.PExecute("UPDATE website2.account_data SET vp = '%u' -50 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
+				// pCreature->MonsterWhisper("Successfully earned Call To Arms Donation Pack I! Thanks for the support!", pPlayer->GetGUID());
+				// pPlayer->AddItem(43575, 1); // Call To Arms Donation Pack I
+				// pPlayer->SaveToDB();
+				// pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			break;
 
@@ -630,11 +630,11 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET vp = '%u' -100 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
-				pCreature->MonsterWhisper("Successfully earned BattleArenas Donation Pack II! Thanks for the support!", pPlayer->GetGUID());
-				pPlayer->AddItem(29569, 1); // BattleArenas Donation Pack II
-				pPlayer->SaveToDB();
-				pPlayer->CLOSE_GOSSIP_MENU();
+			//	LoginDatabase.PExecute("UPDATE website2.account_data SET vp = '%u' -100 WHERE id = '%u'", vp, pPlayer->GetSession()->GetAccountId());
+			// pCreature->MonsterWhisper("Successfully earned Call To Arms Donation Pack II! Thanks for the support!", pPlayer->GetGUID());
+			// pPlayer->AddItem(29569, 1); // Call To Arms Donation Pack II
+			// pPlayer->SaveToDB();
+			// pPlayer->CLOSE_GOSSIP_MENU();
 			}
 			break;
 
@@ -642,8 +642,8 @@ public:
 			OnGossipHello(pPlayer, pCreature);
 			break;
 
-		case 31: // Back to Main Menu / not enought points
-			pPlayer->GetSession()->SendAreaTriggerMessage("Not enought points.");
+		case 31: // Back to Main Menu / not enough points
+			pPlayer->GetSession()->SendAreaTriggerMessage("Not enough points.");
 			OnGossipHello(pPlayer, pCreature);
 			break;
 		}
@@ -652,13 +652,13 @@ public:
 };
 
 ////////////////////////////////////////////////////////////////////////
-//      ___                         ___       __  __  __              //
-//     / _ | _______ ___  ___ _____/ _ )___ _/ /_/ /_/ /__ ___        //
-//    / __ |/ __/ -_) _ \/ _ `/___/ _  / _ `/ __/ __/ / -_|_-<        //
-//   /_/ |_/_/  \__/_//_/\_,_/   /____/\_,_/\__/\__/_/\__/___/.com    //
+//							                                          //
+//							                                          //
+//								                                      //
+//              Kargath-WoW Instant 80 PVP REALM		              //
+//              By Ladrek, Markus                                     //
 //                                                                    //
-//         Developed by Natureknight Patrick and Scott.               //
-//                      AT like donation NPC                          //
+//                                                                    //
 ////////////////////////////////////////////////////////////////////////
 
 class Donation_NPC_AT : public CreatureScript
@@ -668,7 +668,7 @@ public:
 
 	uint32 SelectDPoints(Player* pPlayer)
 	{
-		QueryResult select = LoginDatabase.PQuery("SELECT dp FROM fusioncms_new.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
+		QueryResult select = LoginDatabase.PQuery("SELECT dp FROM website2.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
 
 		if (!select) // Just in case, but should not happen
 		{
@@ -685,7 +685,7 @@ public:
 
 	uint32 SelectVPoints(Player* pPlayer)
 	{
-		QueryResult select = LoginDatabase.PQuery("SELECT vp FROM fusioncms_new.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
+		QueryResult select = LoginDatabase.PQuery("SELECT vp FROM website2.account_data WHERE id = '%u'", pPlayer->GetSession()->GetAccountId());
 
 		if (!select) // Just in case, but should not happen
 		{
@@ -709,7 +709,7 @@ public:
 		}
 		else
 		{
-			LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", SelectDPoints(pPlayer), pPlayer->GetSession()->GetAccountId());
+			LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", SelectDPoints(pPlayer), pPlayer->GetSession()->GetAccountId());
 			pPlayer->GetSession()->SendAreaTriggerMessage("Successfully earned a title! Thanks for the support!");
 			pPlayer->SetTitle(sCharTitlesStore.LookupEntry(entry));
 			pPlayer->SaveToDB();
@@ -719,7 +719,7 @@ public:
 	bool OnGossipHello(Player * pPlayer, Creature * pCreature)
 	{
 		// TODO: Prevent exploiting the FusionCMS donate points
-		if (pPlayer->GetSession()->GetSecurity() < 5 && SelectDPoints(pPlayer) > 50)
+		if (pPlayer->GetSession()->GetSecurity() < 500 && SelectDPoints(pPlayer) > 500)
 		{
 			pPlayer->GetSession()->SendAreaTriggerMessage("You have large amount of Donation points: %u. This is probably a website related problem, please immediately contact the administrator via ticket about this issue.", SelectDPoints(pPlayer));
 			pPlayer->CLOSE_GOSSIP_MENU();
@@ -727,35 +727,35 @@ public:
 		}
 
 		// VIP Account
-		if (SelectDPoints(pPlayer) < 30)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Purchase VIP Account (|cffD80000Locked|r / Click for Information)", GOSSIP_SENDER_MAIN, 1);
-		else if (SelectDPoints(pPlayer) >= 30)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Purchase VIP Account (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 2);
+		if (SelectDPoints(pPlayer) < 300)
+		pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Purchase VIP Account (|cffD80000Locked|r / Click for Information)", GOSSIP_SENDER_MAIN, 1);
+		else if (SelectDPoints(pPlayer) >= 300)
+		pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Purchase VIP Account (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 2);
 
 		// VIP only for current char
-		if (SelectDPoints(pPlayer) < 7)
+		if (SelectDPoints(pPlayer) < 100)
 			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "VIP only for current character (|cffD80000Locked|r / Click for Information)", GOSSIP_SENDER_MAIN, 3);
-		else if (SelectDPoints(pPlayer) >= 7)
+		else if (SelectDPoints(pPlayer) >= 100)
 			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "VIP only for current character (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 4);
 
 
 		// WF weapons 1H
-		if (SelectDPoints(pPlayer) < 1)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Offpiece/1H Weapon/Exotic Mount (|cffD80000Locked|r / Min 1 Donation Point needed)", GOSSIP_SENDER_MAIN, 998);
-		else if (SelectDPoints(pPlayer) >= 1)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Offpiece/1H Weapon/Exotic Mount (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 5);
+		 if (SelectDPoints(pPlayer) < 1)
+			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Exotic Mount Token (|cffD80000Locked|r / Min 1 Donation Point needed)", GOSSIP_SENDER_MAIN, 998);
+		    else if (SelectDPoints(pPlayer) >= 1)
+			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Exotic Mount Token (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 5);
 
 		// WF weapon 2H
-		if (SelectDPoints(pPlayer) < 2)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Main Piece/2H Weapon (|cffD80000Locked|r / Min 2 Donation Points needed)", GOSSIP_SENDER_MAIN, 998);
-		else if (SelectDPoints(pPlayer) >= 2)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Main Piece/2H Weapon (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 6);
+		// if (SelectDPoints(pPlayer) < 2)
+		//	pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Main Piece/2H Weapon (|cffD80000Locked|r / Min 2 Donation Points needed)", GOSSIP_SENDER_MAIN, 998);
+		// else if (SelectDPoints(pPlayer) >= 2)
+		//	pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Wrathful Main Piece/2H Weapon (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 6);
 
 		// Custom Legendary Weapon
-		if (SelectDPoints(pPlayer) < 5)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Custom Legendary Weapon (|cffD80000Locked|r / Min 5 Donation Points)", GOSSIP_SENDER_MAIN, 998);
-		else if (SelectDPoints(pPlayer) >= 5)
-			pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Custom Legendary Weapon (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 7);
+		// if (SelectDPoints(pPlayer) < 5)
+		// 	pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Custom Legendary Weapon (|cffD80000Locked|r / Min 5 Donation Points)", GOSSIP_SENDER_MAIN, 998);
+		// else if (SelectDPoints(pPlayer) >= 5)
+		//	pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_1, "Custom Legendary Weapon (|cff009900Unlocked|r / Click to use)", GOSSIP_SENDER_MAIN, 7);
 
 
 		// Titles
@@ -799,8 +799,8 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -30 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
-				LoginDatabase.PExecute("INSERT INTO `account_access` (`id`, `gmlevel`, `RealmID`) VALUES (%u, 1, -1);", pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -300 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("INSERT INTO `account_access` (`id`, `gmlevel`, `RealmID`) VALUES (%u, 01, -1);", pPlayer->GetSession()->GetAccountId());
 				pPlayer->GetSession()->SendAreaTriggerMessage("Successfully upgraded your account to VIP. Quit the game and login again for changes to take effect! Thanks for the support!");
 				pPlayer->SaveToDB();
 				pPlayer->CLOSE_GOSSIP_MENU();
@@ -820,7 +820,7 @@ public:
 			}
 			else
 			{
-				LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -7 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+				LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -100 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 				pPlayer->GetSession()->SendAreaTriggerMessage("Successfully upgraded this character to VIP! Thanks for the support!");
 				pPlayer->AddItem(ONE_CHARACTER_VIP, 1);
 				pPlayer->SaveToDB();
@@ -829,21 +829,21 @@ public:
 			break;
 
 		case 5: // Wrathful Offpiece / 1H Weapon / Mount - unlocked
-			LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+			LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -1 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 			pPlayer->AddItem(44990, 25); // 25 Emblems of Relentless (Champion's Seal)
 			pPlayer->SaveToDB();
 			pPlayer->CLOSE_GOSSIP_MENU();
 			break;
 
 		case 6: // Wrathful Main Piece / 2H Weapon - unlocked
-			LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -2 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+			LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -2 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 			pPlayer->AddItem(44990, 50); // 50 Emblems of Relentless (Champion's Seal)
 			pPlayer->SaveToDB();
 			pPlayer->CLOSE_GOSSIP_MENU();
 			break;
 
 		case 7: // Purchase Legendary Weapon - for Fun realm
-			LoginDatabase.PExecute("UPDATE fusioncms_new.account_data SET dp = '%u' -5 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
+			LoginDatabase.PExecute("UPDATE website2.account_data SET dp = '%u' -5 WHERE id = '%u'", dp, pPlayer->GetSession()->GetAccountId());
 			pPlayer->GetSession()->SendAreaTriggerMessage("Successfully purchased 15 Emblems of Legendary! Speak with Legendary Weapons NPC!");
 			pPlayer->AddItem(40753, 15); // Emblem of Valor (Emblem of Legendary)
 			pPlayer->SaveToDB();
@@ -975,8 +975,8 @@ public:
 			pPlayer->CLOSE_GOSSIP_MENU();
 			break;
 
-		case 998: // Not enought points
-			pPlayer->GetSession()->SendAreaTriggerMessage("Not enought donation points.");
+		case 998: // Not enough points
+			pPlayer->GetSession()->SendAreaTriggerMessage("Not enough donation points.");
 			OnGossipHello(pPlayer, pCreature);
 			break;
 

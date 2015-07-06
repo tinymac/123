@@ -1,7 +1,7 @@
 /*
  *
  * Copyright (C) 2014 Teiby
- * Written by Teiby <http://www.teiby.de/>
+ * Written by Ladrek <Kargath-WoW>
  *
  */
 
